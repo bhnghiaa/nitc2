@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NITC 2021-2024 ❤️</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      .mail-icon {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #ffffff9e;
+        border-radius: 50%;
+        padding: 10px;
+        box-shadow: 0 0 5px #f5986e;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .mail-icon:hover {
+        background-color: #f5986e;
+      }
+      .fa-envelope {
+        color: #f25346;
+      }
+
+      .mail-popup {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 20px;
+        width: 85%;
+        background: #86595330;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #f5986e;
+        padding: 20px;
+        z-index: 1000;
+        overflow: auto;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .mail-popup.active {
+        display: block;
+        opacity: 1;
+      }
+      .mail-popup h2 {
+        margin-top: 0;
+      }
+      .mail-popup .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .mail-popup .content span {
+        display: inline-block;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="world">
+      <div id="mail-icon" class="mail-icon">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div id="mail-popup" class="mail-popup">
+        <div class="close-btn"></div>
+        <div class="content" id="text-content"></div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+      function splitTextIntoSpans() {
+        const textContent =
+          "Mấy nay suy nghĩ về NITC, về kết thúc của một hành trình, về các chặng đường đã đi qua.. Nếu không may mắn vào được ban HT, có lẽ sẽ không học hỏi được nhiều như vậy. Nếu không là thành viên của NITC, có lẽ những năm tháng sinh viên ngắn ngủi này sẽ tẻ nhạt hơn rất nhiều.. Là một người khá là không tự tin về bản thân bởi vậy đã tự xây nên một hình tượng rụt rè ít nói, khó để kết bạn với người khác, dễ ovtk và cũng dễ.. trở nên im lặng. Khi mới vào clb mục đích đơn giản chỉ là học tập các kiến thức chuyên ngành để phục cho bản thân cho đến khi thấy những người khác chạy dl cùng nhau, làm việc cùng nhau, tổ chức sự kiện cùng nhau, chơi cùng nhau, lúc đó mới thấy mình đã lãng phí những trải nghiệm tuyệt vời như nào.. Năm vừa rồi không đóng góp gì cho clb nhiều nhưng cũng được tham gia mấy chuyến đi chơi, dù gần hay xa thì đó cũng là những chuyến đi thật tuyệt. Sau mỗi chuyến đi vẫn luôn muốn lưu trữ lại theo một cách “đặc biệt” nào đó (mượn code để tạo ra web như này :3), không biết đã là lần cuối chưa, không biết những người bạn sẽ ra sao.. đôi khi không biết kết quả sẽ ra sao nhưng dù sao cũng được trải qua quá trình tuyệt vời. “We write to taste life twice, in the moment and in retrospect” ";
+        const contentDiv = document.getElementById("text-content");
+        const newHtml = textContent
+          .split("\n")
+          .map(
+            (line) =>
+              line
+                .split("")
+                .map((char) => `<span>${char === " " ? "&nbsp;" : char}</span>`)
+                .join("") + "<br>"
+          )
+          .join("");
+
+        contentDiv.innerHTML = newHtml;
+      }
+      function handleMailPopup() {
+        const popup = document.getElementById("mail-popup");
+        popup.classList.toggle("active");
+
+        const spans = document.querySelectorAll(".mail-popup .content span");
+        if (popup.classList.contains("active")) {
+          spans.forEach((span, index) => {
+            setTimeout(() => {
+              span.style.opacity = 1;
+            }, index * 100);
+          });
+        } else {
+          spans.forEach((span) => {
+            span.style.opacity = 0;
+          });
+        }
+      }
+
+      document
+        .getElementById("mail-icon")
+        .addEventListener("click", handleMailPopup);
+
+      splitTextIntoSpans();
+    </script>
+  </body>
+</html>
